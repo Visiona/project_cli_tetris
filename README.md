@@ -1,4 +1,4 @@
-Darek Biskupski and Andrea
+Darek Biskupski and Andrea A
 
 assignment_tetris
 =================
@@ -61,4 +61,3 @@ COMMENTS:
 - continues movement - gem
 
 
->>>>>>> 1c79a898693be17db077b9e649420b3915385e3f
