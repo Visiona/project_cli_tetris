@@ -15,13 +15,118 @@ Run the game and include victory/loss conditions
 Add additional pieces and their rotations
 Make the user input more "realtime" by not requiring the ENTER key. You can check out this Stack Overflow Post and this library for some help doing this.
 
+
+
+
 - Class Player
+
+store player's running total
+
+#ask for coordinates
+player enters left, right, rotate right
+
+#add to current score
+increment score based on rows/lines removed
+
+
 
 - Class Board
 
-- Class AI
+#initialize
+    initialize blank 20 by 10 board
+    initialize block generator
+
+#render
+display current state of the board
+
+#add new block to board
+the block is added to top of board in the middle
+
+#coordinates available
+check the space is free
+
+#coordinates_valid
+check the coordinates are within the board
+
+#check if block is seated
+checking if the block has reached another block below it
+
+#check row is full
+check if the row is full
+
+#remove full row
+removes the full row at the bottom of the board 
+adds an empty array at the top of the board
+
+#board full
+the board is full when a block has reached the top row
+
+#display score
+score is displayed after each turn
+
+#move block
+Move block to the bottom of the board
+
+
+
+- Class BlockGenerator
+
+#generate block
+["x"]
+
+----Advanced----
+#random block
+will generate a random number between 1 and 4
+and each number will represent a particular shape
+
+square - 1
+["x", "x"]
+["x", "x"]
+
+l-shape - 2
+["", "",  "x"]
+["x", "x", "x"]
+
+#rotate shape
+calculate new orientation of shape
+
+
+
+
 
 - Class Game
+#initialize
+Initialize Board, player
+
+#welcome
+welcome screen/message
+
+#display top ten list
+
+#play
+loop until board is full
+request move from player
+
+#check if game over
+the game is finished if the board is full or the user presses 'q'
+
+
+
+- Class Statistics
+#load file
+load the saved top ten scores
+
+#save file
+save the latest score to the top ten scores
+
+#check position 
+compare the current points with the scroes in the list
+
+
+
+
+
+
 
 1. Welcome Screen
     a) Upon a new game being started, display the top-10 list
@@ -48,7 +153,18 @@ c) If the player is a top-ten score, prompt for their name to add to the list
 d) A top-ten scores list is kept in a file
 
 
-
+From tic tac toe
+Set up the game initially
+    Create a game board
+    Create a couple players
+Start the game loop
+    Render the board
+    Ask for and validate the current player's coordinates
+    If the game should end
+        Display the proper victory / draw message
+        Stop looping
+    Else
+        Switch to the next player and keep looping
 
 
 
