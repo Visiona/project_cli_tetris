@@ -18,15 +18,34 @@ Make the user input more "realtime" by not requiring the ENTER key. You can chec
 
 
 
-- Class Player
+class Player
+    def initialize
+        # store player's running total - maybe keep in Game class
+        # name of player
+    end
 
-store player's running total
+    def get_user_name
+        # display message to ask user for name
+        # get user name
+        # store name
+    end
 
-#ask for coordinates
-player enters left, right, rotate right
 
-#add to current score
-increment score based on rows/lines removed
+    def ask_for_coordinates
+        # loop through the following
+        # message to ask for coordinates
+        # e.g. a = left, d = right, s = down
+        # get coordinates from player
+        # validate coordinates
+        # return coordinates
+    end
+
+    def validate_coordinates
+        # check if length of input is 1 and it is a, d or s
+        # return error message if the reuslt is false
+        # return true or false
+    end
+end
 
 
 
@@ -48,9 +67,6 @@ check the space is free
 #coordinates_valid
 check the coordinates are within the board
 
-#check if block is seated
-checking if the block has reached another block below it
-
 #check row is full
 check if the row is full
 
@@ -60,19 +76,32 @@ adds an empty array at the top of the board
 
 #board full
 the board is full when a block has reached the top row
+game ends
 
 #display score
 score is displayed after each turn
 
-#move block
+#move block in steps
+Move block down 1 square - press enter
+
+#move block to bottom
 Move block to the bottom of the board
 
+# Board generator class - generate block
+# Loop/condition the block generation 
+# while block is seated - generate new block
+
+
+#check if block is seated - trigger to create a new block
+checking if the block has reached another block below it
 
 
 - Class BlockGenerator
 
 #generate block
 ["x"]
+
+#move_block
 
 ----Advanced----
 #random block
@@ -95,20 +124,45 @@ calculate new orientation of shape
 
 
 - Class Game
-#initialize
-Initialize Board, player
 
-#welcome
-welcome screen/message
+def initialize
+    # Initialize Board, player
+    # Initialize Block Generator
+    # Initialize Statistics
+    # Player Score = 0
+end
+
+def welcome
+    # display welcome message
+    # display instructions and how to quit
+end
+
+def quit
+
+end
+
+def increment_score
+    # add to current score
+    # increment score based on rows/lines removed
+end
 
 #display top ten list
 
-#play
-loop until board is full
-request move from player
+def play
+    # loop until board is full or break id user quits
+    # Board class - render
+    # Player class - ask_for_coordinates
+    # Board class - generate the block and update array with block moved
+    # display score
+    # break if game_over
+    # end loop
+    # Display final score when game lost
+end
 
-#check if game over
-the game is finished if the board is full or the user presses 'q'
+def game_over?
+    # the game is finished if the board is full or the user presses 'q'
+    # returns true if the game is over, otherwise false
+end
 
 
 
@@ -120,7 +174,7 @@ load the saved top ten scores
 save the latest score to the top ten scores
 
 #check position 
-compare the current points with the scroes in the list
+compare the current points with the scores in the list
 
 
 
