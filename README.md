@@ -47,32 +47,61 @@ class Player
     end
 end
 
+BOARD 10 x 10
+[['_','_','_','_','_','_','_','_','_','_'], - ROW 0
+['_','_','_','_','_','_','_','_','_','_'], - ROW 1
+['_','_','_','_','_','_','_','_','_','_'],
+['_','_','_','_','_','_','_','_','_','_'],
+['_','_','_','_','_','_','_','_','_','_'],
+['_','_','_','_','_','_','_','_','_','_'],
+['_','_','_','_','_','_','_','_','_','_'],
+['_','_','_','_','_','_','_','_','_','_'],
+['_','_','_','_','_','_','_','_','_','_'],
+['_','_','_','_','_','_','_','_','_','_']] - ROW 9
 
+[,,,,,'X',,,,]
 
-- Class Board
+Class Board
 
-#initialize
-    initialize blank 20 by 10 board
-    initialize block generator
+def initialize
+# initialize array 20 by 10 board (or 10 by 10)
+# initialize block generator - ????
+end
 
-#render
-display current state of the board
+def render_board
+# we loop through array/board rows
+  # we loop through every place in row aka columns
+  # if any blank then next
+end
 
-#add new block to board
-the block is added to top of board in the middle
+def add_block_to_board
+# check if coordinates_available?(coord_of_new_block)
+# add piece ('X') to first row, middle column
+end
 
-#coordinates available
-check the space is free
+def coordinates_available?(coord) # ie. coord = [1,2]
+# check if coord is nil
+end
 
-#coordinates_valid
-check the coordinates are within the board
+def coordinates_valid?(coord)
+# if (0..9).include?(coords[0]) && (0..9).include?(coords[1])
+# true
+end
 
-#check row is full
-check if the row is full
+def is_row_full?(coord)
+# if coord[0].all?{|cell| cell == 'X' }
+# true
+end
 
-#remove full row
-removes the full row at the bottom of the board 
-adds an empty array at the top of the board
+def clear_row
+empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
+# loop through the rows # in advanced version we need to remove pecific row rather then alway the bottom one and previous row to the deleted one
+# if is_row_full?(coord) ie. row 3
+# board[9].pop
+# board.unshift(empty_row)
+end
+
+#add_one_to_score for every cleared_row
 
 #board full
 the board is full when a block has reached the top row
@@ -95,6 +124,7 @@ Move block to the bottom of the board
 #check if block is seated - trigger to create a new block
 checking if the block has reached another block below it
 
+end
 
 - Class BlockGenerator
 
@@ -123,7 +153,7 @@ calculate new orientation of shape
 
 
 
-- Class Game
+Class Game
 
 def initialize
     # Initialize Board, player
