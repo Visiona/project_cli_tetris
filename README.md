@@ -34,9 +34,9 @@ class Player
     def ask_for_coordinates
         # loop through the following
         # message to ask for coordinates
-        # e.g. a = left, d = right, s = down
+        # e.g. a = left, d = right, s = down, q = quit
         # get coordinates from player
-        # validate coordinates
+        # if not "q" then validate coordinates
         # return coordinates
     end
 
@@ -66,6 +66,7 @@ Class Board
 def initialize
 # initialize array 20 by 10 board (or 10 by 10)
 # initialize block generator - ????
+# coordinates of block (middle of board, top row)
 end
 
 def render_board
@@ -101,55 +102,28 @@ empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
 # board.unshift(empty_row)
 end
 
-#add_one_to_score for every cleared_row
-
-#board full
-the board is full when a block has reached the top row
-game ends
-
-#display score
-score is displayed after each turn
-
-#move block in steps
-Move block down 1 square - press enter
-
-#move block to bottom
-Move block to the bottom of the board
-
-# Board generator class - generate block
-# Loop/condition the block generation 
-# while block is seated - generate new block
-
-
-#check if block is seated - trigger to create a new block
-checking if the block has reached another block below it
-
+def is_board_full?
+# check if top row is full - is_row_full(row 0,0) 
 end
 
-- Class BlockGenerator
 
-#generate block
-["x"]
+def move_block(mov)
+# if mov = "s"
+# update board arr[x+1, y], clear current cell
 
-#move_block
+# if left 
+# update board arr[x, y-1], clear current cell
 
-----Advanced----
-#random block
-will generate a random number between 1 and 4
-and each number will represent a particular shape
+#if right
+# update board arr[x, y+1], clear current cell
 
-square - 1
-["x", "x"]
-["x", "x"]
+# update current block coordinates - global variable
+end
 
-l-shape - 2
-["", "",  "x"]
-["x", "x", "x"]
-
-#rotate shape
-calculate new orientation of shape
-
-
+def check_if_block_seated
+# get current block coordinates
+# if coordinates arr[x+1, y] is not nil?
+end
 
 
 
@@ -168,25 +142,33 @@ def welcome
 end
 
 def quit
-
+# Display final score when game lost and bye message
 end
+
 
 def increment_score
     # add to current score
-    # increment score based on rows/lines removed
+    # increment score based on rows/lines removed (from board class)
+end
+
+def display_score
+# get current score
 end
 
 #display top ten list
 
 def play
-    # loop until board is full or break id user quits
+    # loop until board is full or break if user quits
+    # generate new block, check_if_block_seated?
     # Board class - render
     # Player class - ask_for_coordinates
+    # if coordinates == "q" then break
+    # Pass user coordinates to the board class
     # Board class - generate the block and update array with block moved
     # display score
-    # break if game_over
+    # break if game_over?
     # end loop
-    # Display final score when game lost
+    quit
 end
 
 def game_over?
@@ -208,7 +190,7 @@ compare the current points with the scores in the list
 
 
 
-
+# For next time - start coding and fill in statistics class from file loader previous exercise
 
 
 
@@ -237,19 +219,27 @@ c) If the player is a top-ten score, prompt for their name to add to the list
 d) A top-ten scores list is kept in a file
 
 
-From tic tac toe
-Set up the game initially
-    Create a game board
-    Create a couple players
-Start the game loop
-    Render the board
-    Ask for and validate the current player's coordinates
-    If the game should end
-        Display the proper victory / draw message
-        Stop looping
-    Else
-        Switch to the next player and keep looping
+- Class BlockGenerator
+#generate block
+["x"]
 
+#move_block
+
+----Advanced----
+#random block
+will generate a random number between 1 and 4
+and each number will represent a particular shape
+
+square - 1
+["x", "x"]
+["x", "x"]
+
+l-shape - 2
+["", "",  "x"]
+["x", "x", "x"]
+
+#rotate shape
+calculate new orientation of shape
 
 
 
