@@ -1,29 +1,32 @@
 class Player
-    
+    attr_accessor :total, :name
+    # store player's running total - maybe keep in Game class
+
     def initialize
-        # store player's running total - maybe keep in Game class
-        # name of player
+        
     end
 
     def get_user_name
-        # display message to ask user for name
-        # get user name
-        # store name
+        puts "Please enter your name"
+        @name = gets.chomp
     end
 
 
     def ask_for_coordinates
-        # loop through the following
-        # message to ask for coordinates
-        # e.g. a = left, d = right, s = down, q = quit
-        # get coordinates from player
-        # if not "q" then validate coordinates
-        # return coordinates
+        loop do
+            puts "Enter your move coordinates"
+            puts "e.g. a = left, d = right, s = down, q = quit"
+            input = gets.chomp
+            if input != "q"
+                validate_coordinates(input)
+            else
+                input
+            end
+        end
     end
 
-    def validate_coordinates
-        # check if length of input is 1 and it is a, d or s
-        # return error message if the reuslt is false
-        # return true or false
+    def validate_coordinates(input)
+        valid_input = ["a", "d", "s"]
+        input.length == 1 && (valid_input.include? input) ? true : (puts "Invalid input")
     end
 end
