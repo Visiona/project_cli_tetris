@@ -32,29 +32,28 @@ class Board
   end
 
   def coordinates_available?(coord) # ie. coord = [1,2]
-  # check if coord is nil
+    @board[coord[0], coord[1]].nil?
   end
 
   def coordinates_valid?(coord)
-  # if (0..9).include?(coords[0]) && (0..9).include?(coords[1])
-  # true
+    (0..9).include?(coord[0]) && (0..9).include?(coord[1])
   end
 
   def is_row_full?(coord)
-  # if coord[0].all?{|cell| cell == 'X' }
-  # true
+    @board[coord[0]].all?{|cell| cell == 'X' }
   end
 
   def clear_row
-  # empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
-  # loop through the rows # in advanced version we need to remove pecific row rather then alway the bottom one and previous row to the deleted one
-  # if is_row_full?(coord) ie. row 3
-  # board[9].pop
-  # board.unshift(empty_row)
+    empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
+   # loop through the rows # in advanced version we need to remove pecific row rather then alway the bottom one and previous row to the deleted one
+    if is_row_full?([9,nil])
+      @board[9].pop
+      @board.unshift(empty_row)
+    end
   end
 
   def is_board_full?
-  # check if top row is full - is_row_full(row 0,0) 
+    is_row_full?([0,nil])
   end
 
 
