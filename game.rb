@@ -37,6 +37,7 @@ class Game
         # if coordinates == "q" then break
         # Pass user coordinates to the board class
         # Board class - generate the block and update array with block moved
+        # check if space under - if false call add new block to board
         # display score
         # break if game_over?
         # end loop

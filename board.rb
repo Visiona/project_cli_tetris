@@ -1,35 +1,40 @@
-# BOARD 10 x 10
-# [['_','_','_','_','_','_','_','_','_','_'], - ROW 0
-# ['_','_','_','_','_','_','_','_','_','_'], - ROW 1
-# ['_','_','_','_','_','_','_','_','_','_'],
-# ['_','_','_','_','_','_','_','_','_','_'],
-# ['_','_','_','_','_','_','_','_','_','_'],
-# ['_','_','_','_','_','_','_','_','_','_'],
-# ['_','_','_','_','_','_','_','_','_','_'],
-# ['_','_','_','_','_','_','_','_','_','_'],
-# ['_','_','_','_','_','_','_','_','_','_'],
-# ['_','_','_','_','_','_','_','_','_','_']] - ROW 9
-
-# [,,,,,'X',,,,]
-
 class Board
   attr_accessor :current_coord, :board_arr
 
   def initialize
-  # initialize array 20 by 10 board (or 10 by 10)
-  # initialize block generator - ????
-  # coordinates of block (middle of board, top row)
+    @board_arr = 
+                [[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], # ROW 0
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], # ROW 1
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+                [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]] # ROW 9
+    @current_coord = [0,5]            
   end
 
   def render_board
+    @board_arr.each do |x|
+      x.each do |y|
+        print "|#{y}"
+      end
+      puts 
+    end
+  end
+
   # we loop through array/board rows
     # we loop through every place in row aka columns
     # if any blank then next
   end
 
   def add_block_to_board
-  # check if coordinates_available?(coord_of_new_block)
-  # add piece ('X') to first row, middle column
+    if coordinates_available?([0,5])
+      @current_coord = [0,5]
+      @board_arr[0][5] = "X"
+    end
   end
 
   def coordinates_available?(coord) # ie. coord = [1,2]
@@ -57,31 +62,36 @@ class Board
     is_row_full?([0,nil])
   end
 
-  # def get_current_coord
-# => get current coordinates
-  # end
-
-
   def move_block(mov)
     x = @current_coord[0]
     y = @current_coord[1]
-    board_arr[x][y] = nil # @board[coords[0]][coords[1]] = piece
+    @board_arr[x][y] = nil # @board[coords[0]][coords[1]] = piece
 
     if mov == "a" # left
-      board_arr[x][y - 1] = "X"
+      if coordinates_valid?([x,y-1]) && coordinates_available?([x,y-1])
+        @board_arr[x][y - 1] = "X"
+        @current_coord = [x, y-1]
+      end
     elsif mov == "d" # right
-      board_arr[x][y + 1] = "X"
+      if coordinates_valid?([x,y+1]) && coordinates_available?([x,y+1])
+        @board_arr[x][y + 1] = "X"
+        @current_coord = [x, y+1]
+      end
     elsif mov == "s" # down
-      board_arr[x + 1][y] = "X"
+      if coordinates_valid?([x+1,y]) && coordinates_available?([x+1,y])
+        @board_arr[x + 1][y] = "X"
+        @current_coord = [x+1, y]
+      end
     elsif mov == "q"
       # decide if we returning anything
     end
-
   end
 
-  def check_if_block_seated
-  # get current block coordinates
-  # if coordinates arr[x+1, y] is not nil?
+  def check_if_space_under?
+    x = @current_coord[0]
+    y = @current_coord[1]
+
+    @board_arr[x+1][y].nil? 
   end
 end
 
