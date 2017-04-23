@@ -13,6 +13,7 @@
 # [,,,,,'X',,,,]
 
 class Board
+  attr_accessor :current_coord, :board_arr
 
   def initialize
   # initialize array 20 by 10 board (or 10 by 10)
@@ -56,18 +57,26 @@ class Board
     is_row_full?([0,nil])
   end
 
+  # def get_current_coord
+# => get current coordinates
+  # end
+
 
   def move_block(mov)
-  # if mov = "s"
-  # update board arr[x+1, y], clear current cell
+    x = @current_coord[0]
+    y = @current_coord[1]
+    board_arr[x][y] = nil # @board[coords[0]][coords[1]] = piece
 
-  # if left 
-  # update board arr[x, y-1], clear current cell
+    if mov == "a" # left
+      board_arr[x][y - 1] = "X"
+    elsif mov == "d" # right
+      board_arr[x][y + 1] = "X"
+    elsif mov == "s" # down
+      board_arr[x + 1][y] = "X"
+    elsif mov == "q"
+      # decide if we returning anything
+    end
 
-  #if right
-  # update board arr[x, y+1], clear current cell
-
-  # update current block coordinates - global variable
   end
 
   def check_if_block_seated
@@ -75,3 +84,8 @@ class Board
   # if coordinates arr[x+1, y] is not nil?
   end
 end
+
+
+
+
+
