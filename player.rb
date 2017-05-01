@@ -3,7 +3,7 @@ class Player
     # store player's running total - maybe keep in Game class
 
     def initialize
-        
+        @name = name
     end
 
     def get_user_name

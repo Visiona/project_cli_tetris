@@ -2,10 +2,8 @@
 class Game
 
     def initialize
-        # Initialize Board, player
-        # Initialize Block Generator
-        # Initialize Statistics
-        # Player Score = 0
+        @board = Board.new
+        @player = Player.new
     end
 
     def welcome
@@ -30,23 +28,28 @@ class Game
     #display top ten list
 
     def play
-        # loop until board is full or break if user quits
-        # generate new block, check_if_block_seated?
-        # Board class - render
-        # Player class - ask_for_coordinates
-        # if coordinates == "q" then break
-        # Pass user coordinates to the board class
-        # Board class - generate the block and update array with block moved
-        # check if space under - if false call add new block to board
-        # display score
-        # break if game_over?
-        # end loop
-        quit
+        move = ""
+        welcome
+        @board.render_board
+        while @board.is_board_full? || move = "q"
+            @player.get_user_name
+            puts "Please provide move: a,d,s,q"
+            move = @player.ask_for_coordinates
+            @board.move_block(move)
+            coord = @board.current_coord
+            @board.add_block_to_board unless @board.check_if_space_under?
+            @board.render_board    
+            # Pass user coordinates to the board class
+            # Board class - generate the block and update array with block moved
+            # display score
+            break if game_over?
+            # quit
+        end
     end
 
     def game_over?
+        @board.is_board_full?
         # the game is finished if the board is full or the user presses 'q'
-        # returns true if the game is over, otherwise false
     end
 
 end
