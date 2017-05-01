@@ -17,16 +17,14 @@ class Player
             puts "Enter your move coordinates"
             puts "e.g. a = left, d = right, s = down, q = quit"
             input = gets.chomp
-            if input != "q"
-                validate_coordinates(input)
-            else
-                input
-            end
+            # if input != "q"
+            # validate_coordinates(input)
+            return input if validate_coordinates(input)
         end
     end
 
     def validate_coordinates(input)
-        valid_input = ["a", "d", "s"]
+        valid_input = ["a", "d", "s", "q"]
         input.length == 1 && (valid_input.include? input) ? true : (puts "Invalid input")
     end
 end

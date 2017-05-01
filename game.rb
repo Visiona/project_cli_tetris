@@ -1,5 +1,10 @@
+require_relative 'board.rb'
+require_relative 'player.rb'
+
 
 class Game
+
+    attr_accessor :board
 
     def initialize
         @board = Board.new
@@ -30,14 +35,18 @@ class Game
     def play
         move = ""
         welcome
+        @player.get_user_name
         @board.render_board
-        while @board.is_board_full? || move = "q"
-            @player.get_user_name
+        while !@board.is_board_full? || move == "q"
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
+            puts "The player's move is #{move}"
             @board.move_block(move)
+            puts "The board has moved the block"
             coord = @board.current_coord
+            puts "The current coord has been updated"
             @board.add_block_to_board unless @board.check_if_space_under?
+            puts "The block has been updated on the board"
             @board.render_board    
             # Pass user coordinates to the board class
             # Board class - generate the block and update array with block moved
