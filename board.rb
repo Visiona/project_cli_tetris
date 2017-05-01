@@ -37,7 +37,7 @@ class Board
   end
 
   def coordinates_available?(coord) # ie. coord = [1,2]
-    @board[coord[0]][coord[1]].nil?
+    @board_arr[coord[0]][coord[1]].nil?
   end
 
   def coordinates_valid?(coord)
@@ -45,15 +45,18 @@ class Board
   end
 
   def is_row_full?(coord)
-    @board[coord[0]].all?{|cell| cell == 'X' }
+    @board_arr[coord[0]].all?{|cell| cell == 'X' }
   end
 
-  def clear_row
+  def clear_row_if_full
     empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
-   # loop through the rows # in advanced version we need to remove pecific row rather then alway the bottom one and previous row to the deleted one
+   # loop through the rows # in advanced version we need to remove specific row rather then alway the bottom one and previous row to the deleted one
     if is_row_full?([9,nil])
-      @board[9].pop
-      @board.unshift(empty_row)
+      @board_arr[9].pop
+      @board_arr.unshift(empty_row)
+      true
+    else
+      false
     end
   end
 
@@ -64,7 +67,7 @@ class Board
   def move_block(mov)
     x = @current_coord[0]
     y = @current_coord[1]
-    @board_arr[x][y] = nil # @board[coords[0]][coords[1]] = piece
+    @board_arr[x][y] = nil # @board_arr[coords[0]][coords[1]] = piece
 
     if mov == "a" # left
       if coordinates_valid?([x,y-1]) && coordinates_available?([x,y-1])
