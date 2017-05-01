@@ -31,7 +31,7 @@ class Game
         move = ""
         welcome
         @board.render_board
-        while @board.is_board_full? || move = "q"
+        while @board.is_board_full? || move == "q"
             @player.get_user_name
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates

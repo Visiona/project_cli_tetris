@@ -13,13 +13,13 @@ class Board
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]] # ROW 9
-    @current_coord = [0,5]            
+    @current_coord = [0,5]
   end
 
   def render_board
     @board_arr.each do |x|
       x.each do |y|
-        print "|#{y}"
+        y == nil ? (print "|_") : (print "|#{y}")
       end
       puts 
     end
@@ -28,7 +28,6 @@ class Board
   # we loop through array/board rows
     # we loop through every place in row aka columns
     # if any blank then next
-  end
 
   def add_block_to_board
     if coordinates_available?([0,5])
@@ -38,7 +37,7 @@ class Board
   end
 
   def coordinates_available?(coord) # ie. coord = [1,2]
-    @board[coord[0], coord[1]].nil?
+    @board[coord[0]][coord[1]].nil?
   end
 
   def coordinates_valid?(coord)
@@ -93,6 +92,7 @@ class Board
 
     @board_arr[x+1][y].nil? 
   end
+
 end
 
 
