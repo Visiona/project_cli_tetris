@@ -40,19 +40,18 @@ class Game
         move = ""
         welcome
         @player.get_user_name
+        @board.add_block_to_board
         @board.render_board
         while !@board.is_board_full? || move == "q"
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
-            puts "DBG: move = #{move.inspect}"
+            # puts "DBG: move = #{move}"
             @board.move_block(move)
-            puts "DBG: @board.move_block(move) = #{@board.move_block(move).inspect}"
             coord = @board.current_coord
-            puts "DBG: coord = #{coord.inspect}"
+            # puts "DBG: coord = #{coord}"
             @board.add_block_to_board unless @board.check_if_space_under?
-            puts "The block has been updated on the board"
-            increment_score if @board.clear_row_if_full
             @board.render_board
+            increment_score if @board.clear_row_if_full
             display_score
             break if game_over?
         end
@@ -68,9 +67,8 @@ end
 
 
 # TASKS TO DO
-# if coords are invalid we need to ask for coords again and block should not move
-# block doesn't to 0,0 from 0,1
 # quit doesn't work
+# check to space is under 
 
 
 

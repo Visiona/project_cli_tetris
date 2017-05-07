@@ -13,7 +13,7 @@ class Board
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]] # ROW 9
-    @current_coord = [0,5]
+     @current_coord = nil
   end
 
   def render_board
@@ -67,20 +67,23 @@ class Board
   def move_block(mov)
     x = @current_coord[0]
     y = @current_coord[1]
-    @board_arr[x][y] = nil # @board_arr[coords[0]][coords[1]] = piece
+    # @board_arr[x][y] = nil # @board_arr[coords[0]][coords[1]] = piece
 
     if mov == "a" # left
       if coordinates_valid?([x,y-1]) && coordinates_available?([x,y-1])
+        @board_arr[x][y] = nil
         @board_arr[x][y - 1] = "X"
         @current_coord = [x, y-1]
       end
     elsif mov == "d" # right
       if coordinates_valid?([x,y+1]) && coordinates_available?([x,y+1])
+        @board_arr[x][y] = nil
         @board_arr[x][y + 1] = "X"
         @current_coord = [x, y+1]
       end
     elsif mov == "s" # down
       if coordinates_valid?([x+1,y]) && coordinates_available?([x+1,y])
+        @board_arr[x][y] = nil
         @board_arr[x + 1][y] = "X"
         @current_coord = [x+1, y]
       end
@@ -93,12 +96,10 @@ class Board
     x = @current_coord[0]
     y = @current_coord[1]
 
-    @board_arr[x+1][y].nil? 
+    if coordinates_valid?([x+1,y])
+      @board_arr[x+1][y].nil?
+    else
+      false
+    end
   end
-
 end
-
-
-
-
-
