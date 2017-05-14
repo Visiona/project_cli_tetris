@@ -52,7 +52,8 @@ class Board
     empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
    # loop through the rows # in advanced version we need to remove specific row rather then alway the bottom one and previous row to the deleted one
     if is_row_full?([9,nil])
-      @board_arr[9].pop
+      puts "Row is full"
+      @board_arr.pop
       @board_arr.unshift(empty_row)
       true
     else
@@ -87,8 +88,6 @@ class Board
         @board_arr[x + 1][y] = "X"
         @current_coord = [x+1, y]
       end
-    elsif mov == "q"
-      # decide if we returning anything
     end
   end
 

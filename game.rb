@@ -42,7 +42,7 @@ class Game
         @player.get_user_name
         @board.add_block_to_board
         @board.render_board
-        while !@board.is_board_full? || move == "q"
+        while move != "q" && !@board.is_board_full? 
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
             # puts "DBG: move = #{move}"
@@ -50,9 +50,11 @@ class Game
             coord = @board.current_coord
             # puts "DBG: coord = #{coord}"
             @board.add_block_to_board unless @board.check_if_space_under?
-            @board.render_board
             increment_score if @board.clear_row_if_full
+            @board.render_board
+            puts "Player score #{@player.total_score}"
             display_score
+            puts "Move is #{move}"
             break if game_over?
         end
         quit
@@ -67,8 +69,14 @@ end
 
 
 # TASKS TO DO
-# quit doesn't work
-# check to space is under 
+# if moving left, right or down and there are no moves possible, the game should end 
+
+# Create is_adjacent_full?
+# Check if left, right, down square of the board arr is = "X" using the current_coord if true return "q"
+# else retunr nothing
+#     this should be called after a block has been placed and the score has been incremented in the game loop
+
+# Start thinking about creating new shapes line, vertical, horizontal
 
 
 
