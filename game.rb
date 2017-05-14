@@ -68,7 +68,6 @@ end
 
 # TASKS TO DO
 # quit doesn't work
-# check to space is under 
 
 
 
