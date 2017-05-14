@@ -77,8 +77,6 @@ end
 #     this should be called after a block has been placed and the score has been incremented in the game loop
 
 # Start thinking about creating new shapes line, vertical, horizontal
->>>>>>> f3e10a38bb29c643ac3fdd7687bb3f4f5086853a
-
 
 
 
