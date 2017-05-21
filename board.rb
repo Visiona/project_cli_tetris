@@ -13,8 +13,22 @@ class Board
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]] # ROW 9
+
+    # @board_arr = 
+        #         [["X","X","X",nil,nil,nil,nil,nil,"X","X"], # ROW 0
+        #         [nil,"X","X","X","X","X","X","X","X","X"], # ROW 1
+        #         ["X",nil,"X","X","X","X","X","X","X","X"],
+        #         ["X","X",nil,"X","X","X","X","X","X","X"],
+        #         ["X","X","X",nil,"X","X","X","X","X","X"],
+        #         ["X","X","X","X",nil,"X","X","X","X","X"],
+        #         ["X","X","X","X","X",nil,"X","X","X","X"],
+        #         ["X","X","X","X","X","X",nil,"X","X","X"],
+        #         ["X","X","X","X","X","X","X",nil,"X","X"],
+        #         ["X","X","X","X","X","X","X","X",nil,"X"]] # ROW 9
      @current_coord = nil
   end
+
+
 
   def render_board
     @board_arr.each do |x|
@@ -90,6 +104,17 @@ class Board
       end
     end
   end
+
+  def is_adjacent_full?
+    x = @current_coord[0]
+    y = @current_coord[1]
+     # if moving left, right or down and there are no moves possible, the game should end
+    if board_arr[x][y-1] == "X" && board_arr[x][y+1] == "X"
+      puts "You can't move. You lost!! HAHAHA"
+      return true
+    end
+  end
+ 
 
   def check_if_space_under?
     x = @current_coord[0]

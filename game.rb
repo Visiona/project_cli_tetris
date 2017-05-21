@@ -54,6 +54,8 @@ class Game
             @board.render_board
             puts "Player score #{@player.total_score}"
             display_score
+            # binding.pry
+            break if @board.is_adjacent_full?
             puts "Move is #{move}"
             break if game_over?
         end
@@ -69,17 +71,22 @@ end
 
 
 # TASKS TO DO
-# if moving left, right or down and there are no moves possible, the game should end 
 
-# Create is_adjacent_full?
-# Check if left, right, down square of the board arr is = "X" using the current_coord if true return "q"
-# else retunr nothing
-#     this should be called after a block has been placed and the score has been incremented in the game loop
+# OUR SHAPES
+#  X          X      XX
+# XXX   XXX   XXX    XX
 
-# Start thinking about creating new shapes line, vertical, horizontal
+# randomly generate object based on an array
+# when initialize the game we create an array of shapes
+# add_block_to_board is going to create a random shape
+# when the shape is created we check if there is enough space to create it and if there is not end the game
+# update check_if_space_under?
+# update current coordinates in a form of two dimensional array holding coordinates of all spaces taken by a shape
+# update coordinates_valid?(coord)
+# create methods which during movement will clear old position and reappear in new location
+# update is_adjacent_full?
 
-
-
+# no freeze frame game but flawless
 
 
 
