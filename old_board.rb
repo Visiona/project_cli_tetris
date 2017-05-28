@@ -1,7 +1,5 @@
-require 'block.rb'
-
 class Board
-  attr_accessor :current_coord, :board_arr, :shapes
+  attr_accessor :current_coord, :board_arr
 
   def initialize
     @board_arr = 
@@ -27,10 +25,10 @@ class Board
         #         ["X","X","X","X","X","X",nil,"X","X","X"],
         #         ["X","X","X","X","X","X","X",nil,"X","X"],
         #         ["X","X","X","X","X","X","X","X",nil,"X"]] # ROW 9
-     @blocks = Block.new
-     @rand_block = @blocks.get_random_shape
      @current_coord = nil
   end
+
+
 
   def render_board
     @board_arr.each do |x|
@@ -42,8 +40,6 @@ class Board
   end
 
   def add_block_to_board
-    @rand_block
-
     if coordinates_available?([0,5])
       @current_coord = [0,5]
       @board_arr[0][5] = "X"

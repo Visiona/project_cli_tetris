@@ -72,9 +72,9 @@ end
 
 # TASKS TO DO
 
-# OUR SHAPES
-#  X          X      XX
-# XXX   XXX   XXX    XX
+# OUR SHAPES              X
+#  X          X      XX   X
+# XXX   XXX   XXX    XX   X
 
 # randomly generate object based on an array
 # when initialize the game we create an array of shapes
