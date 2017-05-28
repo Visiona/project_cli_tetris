@@ -76,10 +76,9 @@ end
 #  X          X      XX   X
 # XXX   XXX   XXX    XX   X
 
-# randomly generate object based on an array
-# when initialize the game we create an array of shapes
-# add_block_to_board is going to create a random shape
-# when the shape is created we check if there is enough space to create it and if there is not end the game
+
+# check if the coordinates are valid if the shape is moved
+# use the coords array for each shape to help us
 # update check_if_space_under?
 # update current coordinates in a form of two dimensional array holding coordinates of all spaces taken by a shape
 # update coordinates_valid?(coord)

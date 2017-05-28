@@ -1,7 +1,7 @@
 require 'block.rb'
 
 class Board
-  attr_accessor :current_coord, :board_arr, :shapes
+  attr_accessor :current_coord, :board_arr, :shapes, :block, :rand_block
 
   def initialize
     @board_arr = 
@@ -17,18 +17,18 @@ class Board
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]] # ROW 9
 
     # @board_arr = 
-        #         [["X","X","X",nil,nil,nil,nil,nil,"X","X"], # ROW 0
-        #         [nil,"X","X","X","X","X","X","X","X","X"], # ROW 1
-        #         ["X",nil,"X","X","X","X","X","X","X","X"],
-        #         ["X","X",nil,"X","X","X","X","X","X","X"],
-        #         ["X","X","X",nil,"X","X","X","X","X","X"],
-        #         ["X","X","X","X",nil,"X","X","X","X","X"],
-        #         ["X","X","X","X","X",nil,"X","X","X","X"],
-        #         ["X","X","X","X","X","X",nil,"X","X","X"],
-        #         ["X","X","X","X","X","X","X",nil,"X","X"],
-        #         ["X","X","X","X","X","X","X","X",nil,"X"]] # ROW 9
-     @blocks = Block.new
-     @rand_block = @blocks.get_random_shape
+    #             [["X","X","X",nil,nil,nil,nil,nil,"X","X"], 
+    #             [nil,"X","X","X","X","X","X","X","X","X"], 
+    #             ["X",nil,"X","X","X","X","X","X","X","X"],
+    #             ["X","X",nil,"X","X","X","X","X","X","X"],
+    #             ["X","X","X",nil,"X","X","X","X","X","X"],
+    #             ["X","X","X","X",nil,"X","X","X","X","X"],
+    #             ["X","X","X","X","X",nil,"X","X","X","X"],
+    #             ["X","X","X","X","X","X",nil,"X","X","X"],
+    #             ["X","X","X","X","X","X","X",nil,"X","X"],
+    #             ["X","X","X","X","X","X","X","X",nil,"X"]] 
+     @block = Block.new
+     @rand_block = @block.get_random_shape
      @current_coord = nil
   end
 
@@ -42,16 +42,15 @@ class Board
   end
 
   def add_block_to_board
-    @rand_block
-
-    if coordinates_available?([0,5])
+    coords = @block.shape_coords(@rand_block)
+    if coordinates_available?(coords) #updating this method
       @current_coord = [0,5]
       @board_arr[0][5] = "X"
     end
   end
 
-  def coordinates_available?(coord) # ie. coord = [1,2]
-    @board_arr[coord[0]][coord[1]].nil?
+  def coordinates_available?(coords) # ie. coord = [1,2]
+    coords.all?{|coord| @board_arr[coord[0]][coord[1]].nil?}
   end
 
   def coordinates_valid?(coord)
