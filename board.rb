@@ -44,17 +44,22 @@ class Board
   def add_block_to_board
     coords = @block.shape_coords(@rand_block)
     if coordinates_available?(coords) #updating this method
-      @current_coord = [0,5]
-      @board_arr[0][5] = "X"
+      @current_coord = coords
+      update_board_with_shape(coords)
     end
   end
+
+  def update_board_with_shape(coords)
+    coords.each {|coord| @board_arr[coord[0]][coord[1]] = "X"}
+  end
+
 
   def coordinates_available?(coords) # ie. coord = [1,2]
     coords.all?{|coord| @board_arr[coord[0]][coord[1]].nil?}
   end
 
-  def coordinates_valid?(coord)
-    (0..9).include?(coord[0]) && (0..9).include?(coord[1])
+  def coordinates_valid?(coords)
+    coords.all?{|coord| (0..9).include?(coord[0]) && (0..9).include?(coord[1])}
   end
 
   def is_row_full?(coord)
@@ -78,10 +83,32 @@ class Board
     is_row_full?([0,nil])
   end
 
+
+
+
+
   def move_block(mov)
-    x = @current_coord[0]
-    y = @current_coord[1]
     # @board_arr[x][y] = nil # @board_arr[coords[0]][coords[1]] = piece
+    @current_coord.each do |coord|
+      x = @current_coord[0]
+      y = @current_coord[1]
+
+      temp = []
+
+      if mov == "a" # left
+        @current_coord.each do |coord|
+          temp << [coord[0], coord[1] - 1]
+        end
+      end
+
+      if we move left then create temporary coordinates which is at current coord after movement
+      Check if coordinates valid
+       for this move for temporary coordinates
+       coordinates_available and if true then clear current shape from board
+       Put shape into new location
+    end
+
+
 
     if mov == "a" # left
       if coordinates_valid?([x,y-1]) && coordinates_available?([x,y-1])
