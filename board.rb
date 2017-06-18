@@ -83,66 +83,49 @@ class Board
     is_row_full?([0,nil])
   end
 
+  def clear_old_coords(coords)
+    coords.each {|coord| @board_arr[coord[0]][coord[1]] = nil}
+  end
 
+  def process_movement(temp)
+    if coordinates_valid?(temp) && coordinates_available?(temp)
+      clear_old_coords(@current_coord)
+      update_board_with_shape(temp)
+      @current_coord = temp
+    end
+  end
 
 
 
   def move_block(mov)
-    # @board_arr[x][y] = nil # @board_arr[coords[0]][coords[1]] = piece
-    @current_coord.each do |coord|
-      x = @current_coord[0]
-      y = @current_coord[1]
-
-      temp = []
-
-      if mov == "a" # left
-        @current_coord.each do |coord|
-          temp << [coord[0], coord[1] - 1]
-        end
-      end
-
-      if we move left then create temporary coordinates which is at current coord after movement
-      Check if coordinates valid
-       for this move for temporary coordinates
-       coordinates_available and if true then clear current shape from board
-       Put shape into new location
-    end
-
-
+    temp = []
 
     if mov == "a" # left
-      if coordinates_valid?([x,y-1]) && coordinates_available?([x,y-1])
-        @board_arr[x][y] = nil
-        @board_arr[x][y - 1] = "X"
-        @current_coord = [x, y-1]
-      end
+      @current_coord.each { |coord| temp << [coord[0], coord[1] - 1] }
+      process_movement(temp)
     elsif mov == "d" # right
-      if coordinates_valid?([x,y+1]) && coordinates_available?([x,y+1])
-        @board_arr[x][y] = nil
-        @board_arr[x][y + 1] = "X"
-        @current_coord = [x, y+1]
-      end
+      @current_coord.each { |coord| temp << [coord[0], coord[1] + 1] }
+      process_movement(temp)
     elsif mov == "s" # down
-      if coordinates_valid?([x+1,y]) && coordinates_available?([x+1,y])
-        @board_arr[x][y] = nil
-        @board_arr[x + 1][y] = "X"
-        @current_coord = [x+1, y]
-      end
+      @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
+      process_movement(temp)
     end
   end
 
   def is_adjacent_full?
-    x = @current_coord[0]
-    y = @current_coord[1]
-     # if moving left, right or down and there are no moves possible, the game should end
-    if board_arr[x][y-1] == "X" && board_arr[x][y+1] == "X"
+    temp = []
+    @current_coord.each { |coord| temp << [coord[0], coord[1] - 1] }
+    @current_coord.each { |coord| temp << [coord[0], coord[1] + 1] }
+    # we only need to check spaces that are not already in current coordinates
+    @current_coord.each {|coord| temp.delete(coord) if temp.include?(coord) }
+    if temp.all? {|coord| @board_arr[coord[0]][coord[1]] == "X" }
       puts "You can't move. You lost!! HAHAHA"
       return true
     end
   end
  
 
-  def check_if_space_under?
+  def check_if_space_under? #This is next method to work on , for next session
     x = @current_coord[0]
     y = @current_coord[1]
 
