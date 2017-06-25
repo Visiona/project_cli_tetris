@@ -1,6 +1,7 @@
 require_relative 'board.rb'
 require_relative 'player.rb'
 require_relative 'stats.rb'
+require_relative 'block.rb'
 
 
 class Game
@@ -45,16 +46,13 @@ class Game
         while move != "q" && !@board.is_board_full? 
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
-            # puts "DBG: move = #{move}"
             @board.move_block(move)
             coord = @board.current_coord
-            # puts "DBG: coord = #{coord}"
             @board.add_block_to_board unless @board.check_if_space_under?
             increment_score if @board.clear_row_if_full
             @board.render_board
             puts "Player score #{@player.total_score}"
             display_score
-            # binding.pry
             break if @board.is_adjacent_full?
             puts "Move is #{move}"
             break if game_over?

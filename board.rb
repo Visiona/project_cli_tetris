@@ -1,4 +1,4 @@
-require 'block.rb'
+require_relative 'block.rb'
 
 class Board
   attr_accessor :current_coord, :board_arr, :shapes, :block, :rand_block
@@ -54,7 +54,7 @@ class Board
   end
 
 
-  def coordinates_available?(coords) # ie. coord = [1,2]
+  def coordinates_available?(coords) # checks all coords nil
     coords.all?{|coord| @board_arr[coord[0]][coord[1]].nil?}
   end
 
@@ -87,14 +87,25 @@ class Board
     coords.each {|coord| @board_arr[coord[0]][coord[1]] = nil}
   end
 
-  def process_movement(temp)
-    if coordinates_valid?(temp) && coordinates_available?(temp)
+  # Lets continue here, overlapping issue as below outcome from code shows
+  def process_movement(temp) 
+    if coordinates_valid?(temp) && can_move?(temp)
+      puts "DBG: @current_coord first = #{@current_coord.inspect}"
+      # @current_coord first = [[0, 4], [0, 5], [1, 4], [1, 5]]
+      puts "DBG: temp in process_movement = #{temp.inspect}"
+      # DBG: temp in process_movement = [[0, 6], [1, 6]]
       clear_old_coords(@current_coord)
+      puts "DBG: @current_coord second = #{@current_coord.inspect}"
       update_board_with_shape(temp)
       @current_coord = temp
     end
   end
 
+  def can_move?(temp_arr) #checks only not overlapped coords if nil
+    @current_coord.each {|coord| temp_arr.delete(coord) if temp_arr.include?(coord) }
+    temp_arr.all?{|temp_coord| @board_arr[temp_coord[0]][temp_coord[1]].nil?}
+    #NoMethodError: undefined method `[]' for nil:NilClass from /Users/Visiona/Documents/Viking_School/Ruby/project_cli_tetris/board.rb:103:in `block in can_move?'
+  end
 
 
   def move_block(mov)
@@ -108,6 +119,7 @@ class Board
       process_movement(temp)
     elsif mov == "s" # down
       @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
+      puts "DBG: temp = #{temp.inspect}"
       process_movement(temp)
     end
   end
@@ -125,14 +137,16 @@ class Board
   end
  
 
-  def check_if_space_under? #This is next method to work on , for next session
-    x = @current_coord[0]
-    y = @current_coord[1]
-
-    if coordinates_valid?([x+1,y])
-      @board_arr[x+1][y].nil?
-    else
-      false
-    end
+    # add a check if coordinates are valid
+  def check_if_space_under?
+    temp = []
+    @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
+    # we only need to check spaces that are not already in current coordinates
+    can_move?(temp)
   end
+
 end
+
+
+
+

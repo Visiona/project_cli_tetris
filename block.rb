@@ -3,7 +3,7 @@ class Block
 
   def initialize
     @current_coord = nil
-     # @shapes = {}
+
     @t = [[nil, "X", nil],
          ["X", "X", "X"]]
 
@@ -42,30 +42,5 @@ class Block
         [[0,4],[0,5],[1,4],[1,5]]
     end
   end
-
-    # return all coordinates of the shape we are given e.g.
-    
-    # a = 0,5; b =0,6; c = 1,5; d =2,5
-    # if all?(coordinates_available?(a,b,c,d))
-    #   then add block to board
-
-
-  # def create_shapes
-  #   add_shape(0, t)
-  #   add_shape(1, h_line)
-  #   add_shape(2, v_line)
-  #   add_shape(3, l)
-  #   add_shape(4, block)
-  # end
-
-  # def add_shapes(num, shape)
-  #   @shapes[num] = shape
-  # end
-
-  # def get_shape(number)
-  #   @shapes[number]
-  # end
-
-
 
 end
