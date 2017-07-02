@@ -47,7 +47,6 @@ class Game
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
             @board.move_block(move)
-            coord = @board.current_coord
             @board.add_block_to_board unless @board.check_if_space_under?
             increment_score if @board.clear_row_if_full
             @board.render_board
@@ -69,21 +68,11 @@ end
 
 
 # TASKS TO DO
+# Game doesn't stop when block reaches the top of the board, even if board is not full
 
-# OUR SHAPES              X
-#  X          X      XX   X
-# XXX   XXX   XXX    XX   X
+# Random shape is not generated, seems to create the same shape throughout the game
 
-
-# check if the coordinates are valid if the shape is moved
-# use the coords array for each shape to help us
-# update check_if_space_under?
-# update current coordinates in a form of two dimensional array holding coordinates of all spaces taken by a shape
-# update coordinates_valid?(coord)
-# create methods which during movement will clear old position and reappear in new location
-# update is_adjacent_full?
-
-# no freeze frame game but flawless
+# Do rotation
 
 
 
