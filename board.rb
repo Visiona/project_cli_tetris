@@ -101,8 +101,10 @@ class Board
     end
   end
 
-  def can_move?(temp_arr) #checks only not overlapped coords if nil
+  def can_move?(temp) #checks only not overlapped coords if nil
+    temp_arr = temp.dup
     @current_coord.each {|coord| temp_arr.delete(coord) if temp_arr.include?(coord) }
+    puts "DBG: temp_arr in can_move = #{temp_arr.inspect}"
     temp_arr.all?{|temp_coord| @board_arr[temp_coord[0]][temp_coord[1]].nil?}
     #NoMethodError: undefined method `[]' for nil:NilClass from /Users/Visiona/Documents/Viking_School/Ruby/project_cli_tetris/board.rb:103:in `block in can_move?'
   end
@@ -119,7 +121,6 @@ class Board
       process_movement(temp)
     elsif mov == "s" # down
       @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
-      puts "DBG: temp = #{temp.inspect}"
       process_movement(temp)
     end
   end
