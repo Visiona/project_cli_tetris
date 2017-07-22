@@ -18,8 +18,8 @@ class Board
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]] # ROW 9
 
      @block = Block.new
-     @rand_block = @block.get_random_shape
      @current_coord = nil
+     @stop = false
   end
 
   def render_board
@@ -32,11 +32,18 @@ class Board
   end
 
   def add_block_to_board
-    coords = @block.shape_coords(@rand_block)
+    rand_block = @block.get_random_shape
+    coords = @block.shape_coords(rand_block)
     if coordinates_available?(coords) #updating this method
       @current_coord = coords
       update_board_with_shape(coords)
+    else
+      @stop = true
     end
+  end
+
+  def no_space_for_block?
+    @stop
   end
 
   def update_board_with_shape(coords)
@@ -68,9 +75,6 @@ class Board
     end
   end
 
-  def is_board_full?
-    is_row_full?([0,nil])
-  end
 
   def clear_old_coords(coords)
     coords.each {|coord| @board_arr[coord[0]][coord[1]] = nil}

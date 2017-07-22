@@ -43,11 +43,10 @@ class Game
         @player.get_user_name
         @board.add_block_to_board
         @board.render_board
-        while move != "q" && !@board.is_board_full?
+        while move != "q" && !@board.no_space_for_block?
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
             @board.move_block(move)
-            # coord = @board.current_coord
             @board.add_block_to_board unless @board.check_if_space_under?
             increment_score if @board.clear_row_if_full
             @board.render_board
@@ -55,32 +54,17 @@ class Game
             display_score
             break if @board.is_adjacent_full?
             puts "Move is #{move}"
-            break if game_over?
         end
         quit
     end
 
     def game_over?
-        @board.is_board_full?
-        # the game is finished if the board is full or the user presses 'q'
+        @board.no_space_for_block?
     end
 
 end
 
 
 # TASKS TO DO
-
-# OUR SHAPES              X
-#  X          X      XX   X
-# XXX   XXX   XXX    XX   X
-
-
-# check if the coordinates are valid if the shape is moved
-# use the coords array for each shape to help us
-# update check_if_space_under?
-# update current coordinates in a form of two dimensional array holding coordinates of all spaces taken by a shape
-# update coordinates_valid?(coord)
-# create methods which during movement will clear old position and reappear in new location
-# update is_adjacent_full?
 
 # no freeze frame game but flawless
