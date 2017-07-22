@@ -1,10 +1,12 @@
 require_relative 'block.rb'
+require 'pry'
+
 
 class Board
   attr_accessor :current_coord, :board_arr, :shapes, :block, :rand_block
 
   def initialize
-    @board_arr = 
+    @board_arr =
                 [[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], # ROW 0
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil], # ROW 1
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
@@ -16,20 +18,9 @@ class Board
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]] # ROW 9
 
-    # @board_arr = 
-    #             [["X","X","X",nil,nil,nil,nil,nil,"X","X"], 
-    #             [nil,"X","X","X","X","X","X","X","X","X"], 
-    #             ["X",nil,"X","X","X","X","X","X","X","X"],
-    #             ["X","X",nil,"X","X","X","X","X","X","X"],
-    #             ["X","X","X",nil,"X","X","X","X","X","X"],
-    #             ["X","X","X","X",nil,"X","X","X","X","X"],
-    #             ["X","X","X","X","X",nil,"X","X","X","X"],
-    #             ["X","X","X","X","X","X",nil,"X","X","X"],
-    #             ["X","X","X","X","X","X","X",nil,"X","X"],
-    #             ["X","X","X","X","X","X","X","X",nil,"X"]] 
      @block = Block.new
-     @rand_block = @block.get_random_shape
      @current_coord = nil
+     @stop = false
   end
 
   def render_board
@@ -37,16 +28,23 @@ class Board
       x.each do |y|
         y == nil ? (print "|_") : (print "|#{y}")
       end
-      puts 
+      puts
     end
   end
 
   def add_block_to_board
-    coords = @block.shape_coords(@rand_block)
+    rand_block = @block.get_random_shape
+    coords = @block.shape_coords(rand_block)
     if coordinates_available?(coords) #updating this method
       @current_coord = coords
       update_board_with_shape(coords)
+    else
+      @stop = true
     end
+  end
+
+  def no_space_for_block?
+    @stop
   end
 
   def update_board_with_shape(coords)
@@ -68,7 +66,6 @@ class Board
 
   def clear_row_if_full
     empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
-   # loop through the rows # in advanced version we need to remove specific row rather then alway the bottom one and previous row to the deleted one
     if is_row_full?([9,nil])
       puts "Row is full"
       @board_arr.pop
@@ -79,23 +76,14 @@ class Board
     end
   end
 
-  def is_board_full?
-    is_row_full?([0,nil])
-  end
 
   def clear_old_coords(coords)
     coords.each {|coord| @board_arr[coord[0]][coord[1]] = nil}
   end
 
-  # Lets continue here, overlapping issue as below outcome from code shows
-  def process_movement(temp) 
+  def process_movement(temp)
     if coordinates_valid?(temp) && can_move?(temp)
-      puts "DBG: @current_coord first = #{@current_coord.inspect}"
-      # @current_coord first = [[0, 4], [0, 5], [1, 4], [1, 5]]
-      puts "DBG: temp in process_movement = #{temp.inspect}"
-      # DBG: temp in process_movement = [[0, 6], [1, 6]]
       clear_old_coords(@current_coord)
-      puts "DBG: @current_coord second = #{@current_coord.inspect}"
       update_board_with_shape(temp)
       @current_coord = temp
     end
@@ -104,9 +92,7 @@ class Board
   def can_move?(temp) #checks only not overlapped coords if nil
     temp_arr = temp.dup
     @current_coord.each {|coord| temp_arr.delete(coord) if temp_arr.include?(coord) }
-    puts "DBG: temp_arr in can_move = #{temp_arr.inspect}"
     temp_arr.all?{|temp_coord| @board_arr[temp_coord[0]][temp_coord[1]].nil?}
-    #NoMethodError: undefined method `[]' for nil:NilClass from /Users/Visiona/Documents/Viking_School/Ruby/project_cli_tetris/board.rb:103:in `block in can_move?'
   end
 
 
@@ -136,19 +122,12 @@ class Board
       return true
     end
   end
- 
 
-    # add a check if coordinates are valid
   def check_if_space_under?
     temp = []
     puts "DBG: @current_coord in check under = #{@current_coord.inspect}"
     @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
     # we only need to check spaces that are not already in current coordinates
-    coordinates_valid?(temp) && can_move?(temp) 
+    coordinates_valid?(temp) ? can_move?(temp) : false
   end
-
 end
-
-
-
-

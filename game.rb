@@ -4,6 +4,7 @@ require_relative 'stats.rb'
 require_relative 'block.rb'
 
 
+
 class Game
 
     attr_accessor :board
@@ -38,12 +39,13 @@ class Game
     end
 
     def play
+
         move = ""
         welcome
         @player.get_user_name
         @board.add_block_to_board
         @board.render_board
-        while move != "q" && !@board.is_board_full? 
+        while move != "q" && !@board.no_space_for_block?
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
             @board.move_block(move)
@@ -54,14 +56,12 @@ class Game
             display_score
             break if @board.is_adjacent_full?
             puts "Move is #{move}"
-            break if game_over?
         end
         quit
     end
 
     def game_over?
-        @board.is_board_full?
-        # the game is finished if the board is full or the user presses 'q'
+        @board.no_space_for_block?
     end
 
 end
@@ -70,6 +70,7 @@ end
 # TASKS TO DO
 # Game doesn't stop when block reaches the top of the board, even if board is not full
 
+<<<<<<< HEAD
 # Random shape is not generated, seems to create the same shape throughout the game
 
 # Do rotation
@@ -78,3 +79,6 @@ end
 
 
 
+=======
+# no freeze frame game but flawless
+>>>>>>> f3189cb702d49604f27565ea078f028a79150c09
