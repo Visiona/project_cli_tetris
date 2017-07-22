@@ -43,11 +43,11 @@ class Game
         @player.get_user_name
         @board.add_block_to_board
         @board.render_board
-        while move != "q" && !@board.is_board_full? 
+        while move != "q" && !@board.is_board_full?
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
             @board.move_block(move)
-            coord = @board.current_coord
+            # coord = @board.current_coord
             @board.add_block_to_board unless @board.check_if_space_under?
             increment_score if @board.clear_row_if_full
             @board.render_board
@@ -84,8 +84,3 @@ end
 # update is_adjacent_full?
 
 # no freeze frame game but flawless
-
-
-
-
-
