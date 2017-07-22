@@ -1,6 +1,7 @@
 require_relative 'block.rb'
 require 'pry'
 
+
 class Board
   attr_accessor :current_coord, :board_arr, :shapes, :block, :rand_block
 

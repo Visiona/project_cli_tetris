@@ -1,3 +1,5 @@
+require 'io/console'
+
 class Player
     attr_accessor :total_score, :name
     # store player's running total - maybe keep in Game class
@@ -12,14 +14,12 @@ class Player
         @name = gets.chomp
     end
 
-
     def ask_for_coordinates
         loop do
             puts "Enter your move coordinates"
             puts "e.g. a = left, d = right, s = down, q = quit"
-            input = gets.chomp
-            # if input != "q"
-            # validate_coordinates(input)
+            input = STDIN.getch
+            print "            \r"
             return input if validate_coordinates(input)
         end
     end

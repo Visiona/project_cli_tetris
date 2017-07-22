@@ -4,6 +4,7 @@ require_relative 'stats.rb'
 require_relative 'block.rb'
 
 
+
 class Game
 
     attr_accessor :board
@@ -38,6 +39,7 @@ class Game
     end
 
     def play
+
         move = ""
         welcome
         @player.get_user_name
