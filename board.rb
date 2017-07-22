@@ -125,9 +125,7 @@ class Board
 
   def check_if_space_under?
     temp = []
-    puts "DBG: @current_coord in check under = #{@current_coord.inspect}"
     @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
-    # we only need to check spaces that are not already in current coordinates
     coordinates_valid?(temp) ? can_move?(temp) : false
   end
 end

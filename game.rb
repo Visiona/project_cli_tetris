@@ -68,17 +68,6 @@ end
 
 
 # TASKS TO DO
-# Game doesn't stop when block reaches the top of the board, even if board is not full
-
-<<<<<<< HEAD
-# Random shape is not generated, seems to create the same shape throughout the game
 
 # Do rotation
-
-
-
-
-
-=======
-# no freeze frame game but flawless
->>>>>>> f3189cb702d49604f27565ea078f028a79150c09
+# stats
