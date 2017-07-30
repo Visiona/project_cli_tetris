@@ -17,7 +17,7 @@ class Player
     def ask_for_coordinates
         loop do
             puts "Enter your move coordinates"
-            puts "e.g. a = left, d = right, s = down, q = quit"
+            puts "e.g. a = left, d = right, s = down, q = quit, e = rotate left, r = rotate right"
             input = STDIN.getch
             print "            \r"
             return input if validate_coordinates(input)
@@ -25,7 +25,7 @@ class Player
     end
 
     def validate_coordinates(input)
-        valid_input = ["a", "d", "s", "q"]
+        valid_input = ["a", "d", "s", "q", "e", "r"]
         input.length == 1 && (valid_input.include? input) ? true : (puts "Invalid input")
     end
 end

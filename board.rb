@@ -35,7 +35,7 @@ class Board
   def add_block_to_board
     rand_block = @block.get_random_shape
     coords = @block.shape_coords(rand_block)
-    if coordinates_available?(coords) #updating this method
+    if coordinates_available?(coords)
       @current_coord = coords
       update_board_with_shape(coords)
     else

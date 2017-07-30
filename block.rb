@@ -13,7 +13,6 @@ class Block
               [nil, "X", nil],
               [nil, "X", nil]]
     @l = [["X", nil, nil],
-         ["X", nil, nil],
          ["X", "X", "X"]]
     @square = [["X", "X"],
              ["X", "X"]]
@@ -37,7 +36,7 @@ class Block
       when @v_line
         [[0,5],[1,5],[2,5]]
       when @l
-        [[0,4],[1,4],[2,4],[2,5],[2,6]]
+        [[0,4],[1,4],[1,5],[1,6]]
       when @square
         [[0,4],[0,5],[1,4],[1,5]]
     end

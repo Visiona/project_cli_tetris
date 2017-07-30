@@ -49,8 +49,8 @@ class Game
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
             @board.move_block(move)
-            @board.add_block_to_board unless @board.check_if_space_under?
             increment_score if @board.clear_row_if_full
+            @board.add_block_to_board unless @board.check_if_space_under?
             @board.render_board
             puts "Player score #{@player.total_score}"
             display_score
