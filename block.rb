@@ -7,16 +7,24 @@ class Block
     @t = [[nil, "X", nil],
          ["X", "X", "X"]]
 
+    # add t at 90 and 180 , 270 degrees
+
     @h_line = [["X", "X", "X"]]
 
     @v_line = [[nil, "X", nil],
               [nil, "X", nil],
               [nil, "X", nil]]
+    # add vline at 90 degrees
+
     @l = [["X", nil, nil],
          ["X", "X", "X"]]
+
+  # add l at 90 and 180, 270 degrees
     @square = [["X", "X"],
              ["X", "X"]]
   end
+
+
 
   # OUR SHAPES            X
 #  X          X      XX   X
@@ -39,6 +47,8 @@ class Block
         [[0,4],[1,4],[1,5],[1,6]]
       when @square
         [[0,4],[0,5],[1,4],[1,5]]
+
+        # update rotations
     end
   end
 

@@ -108,7 +108,27 @@ class Board
     elsif mov == "s" # down
       @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
       process_movement(temp)
+    elsif (mov == "e" || mov == "r") # rotate left or rotate right
+      rotate_block(mov)
     end
+  end
+
+  def rotate_block(mov)
+    if mov = "e"
+      # check current shape and apply rotation
+      @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
+        process_movement(temp)
+    elsif mov = "r"
+    # check current shape and apply rotation
+      @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
+        process_movement(temp)
+    end
+  end
+
+  def rotate_l_90
+    # add 1 to right and left
+    # top and bottom null
+    # coord[0], coord[1] - 1] 
   end
 
   def is_adjacent_full?
