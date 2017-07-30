@@ -3,7 +3,7 @@ require 'pry'
 
 
 class Board
-  attr_accessor :current_coord, :board_arr, :shapes, :block, :rand_block
+  attr_accessor :current_coord, :board_arr, :shapes, :block, :rand_block, :current_shape
 
   def initialize
     @board_arr =
@@ -19,6 +19,7 @@ class Board
                 [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]] # ROW 9
 
      @block = Block.new
+     @current_shape = nil #detect_shape
      @current_coord = nil
      @stop = false
   end
@@ -33,8 +34,9 @@ class Board
   end
 
   def add_block_to_board
-    rand_block = @block.get_random_shape
-    coords = @block.shape_coords(rand_block)
+    # rand_block = @block.get_random_shape
+    @current_shape = @block.get_random_shape
+    coords = @block.shape_coords(@current_shape)
     if coordinates_available?(coords)
       @current_coord = coords
       update_board_with_shape(coords)
@@ -113,23 +115,38 @@ class Board
     end
   end
 
-  def rotate_block(mov)
-    if mov = "e"
-      # check current shape and apply rotation
-      @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
-        process_movement(temp)
-    elsif mov = "r"
-    # check current shape and apply rotation
-      @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
-        process_movement(temp)
-    end
-  end
+  # def rotate_block(mov)
+  #   if mov = "e"
+  #     # 1. we have recorded current shape which is change when the block is generated or after rotation
+  #     # 2. If it's mov = 'e', we compare it block_rotation_right
+  #     # 3. block_rotation right returns an array - first elemnt is current coords and secon is current shape
+  #     #4. process_movement
+  #     @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
+  #       process_movement(temp)
+  #   elsif mov = "r"
+  #   # check current shape and apply rotation
+  #     @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
+  #       process_movement(temp)
+  #   end
+  # end
 
-  def rotate_l_90
-    # add 1 to right and left
-    # top and bottom null
-    # coord[0], coord[1] - 1] 
-  end
+  # def block_rotator(current_shape)
+  #   case current_shape
+  #   when @block.t
+  #     @current_shape = t_90
+  #     @current_coord = ........
+  #   when @block.t_90
+  #     current_shape = t_180
+  #   when @block.t
+  #   when @block.t
+  #   when @block.t
+  # end
+  #
+  # def rotate_l_90
+  #   # add 1 to right and left
+  #   # top and bottom null
+  #   # coord[0], coord[1] - 1]
+  # end
 
   def is_adjacent_full?
     temp = []
