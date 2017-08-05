@@ -20,6 +20,7 @@ class Board
 
      @block = Block.new
      @current_shape = nil #detect_shape
+     @temp_shape_name = nil
      @current_coord = nil
      @stop = false
   end
@@ -34,9 +35,8 @@ class Board
   end
 
   def add_block_to_board
-    # rand_block = @block.get_random_shape
-    @current_shape = @block.get_random_shape
-    coords = @block.shape_coords(@current_shape)
+    @current_shape = @block.get_shape_name
+    coords = @block.shape_coords_hash(@current_shape)
     if coordinates_available?(coords)
       @current_coord = coords
       update_board_with_shape(coords)
@@ -88,6 +88,8 @@ class Board
       clear_old_coords(@current_coord)
       update_board_with_shape(temp)
       @current_coord = temp
+      @current_shape = @temp_shape_name
+      @temp_shape_name = nil
     end
   end
 
@@ -111,42 +113,86 @@ class Board
       @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
       process_movement(temp)
     elsif (mov == "e" || mov == "r") # rotate left or rotate right
-      rotate_block(mov)
+      new_shape_coords = rotate_block(mov)
+      process_movement(new_shape_coords)
     end
   end
 
-  # def rotate_block(mov)
-  #   if mov = "e"
-  #     # 1. we have recorded current shape which is change when the block is generated or after rotation
-  #     # 2. If it's mov = 'e', we compare it block_rotation_right
-  #     # 3. block_rotation right returns an array - first elemnt is current coords and secon is current shape
-  #     #4. process_movement
-  #     @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
-  #       process_movement(temp)
-  #   elsif mov = "r"
-  #   # check current shape and apply rotation
-  #     @current_coord.each { |coord| temp << [coord[0] + 1, coord[1]] }
-  #       process_movement(temp)
-  #   end
-  # end
+  def rotate_block(mov)
+    new_shape_coords = []
+    if mov == "e"
+      @temp_shape_name = block_rotator_anticlock
+    elsif mov == "r"
+      @temp_shape_name = block_rotator_clock
+    end
+    origin_shape_coord = @block.shape_coords_hash(@temp_shape_name)
+    puts "#{origin_shape_coord}"
+    vector_coords = find_vector_move(origin_shape_coord)
+    origin_shape_coord.each { |coord|
+        new_shape_coords << [coord[0] + vector_coords[0], coord[1] + vector_coords[1]] }
+    new_shape_coords
+  end
 
-  # def block_rotator(current_shape)
-  #   case current_shape
-  #   when @block.t
-  #     @current_shape = t_90
-  #     @current_coord = ........
-  #   when @block.t_90
-  #     current_shape = t_180
-  #   when @block.t
-  #   when @block.t
-  #   when @block.t
-  # end
-  #
-  # def rotate_l_90
-  #   # add 1 to right and left
-  #   # top and bottom null
-  #   # coord[0], coord[1] - 1]
-  # end
+  def find_vector_move(origin_coord)
+    new_coords_x = @current_coord[0][0] - origin_coord[0][0]
+    new_coords_y = @current_coord[0][1] - origin_coord[0][1]
+    [new_coords_x, new_coords_y]
+  end
+
+  def block_rotator_clock
+    case @current_shape
+    when "t"
+      "t_90"
+    when "t_90"
+      "t_180"
+    when "t_180"
+      "t_270"
+    when "t_270"
+      "t"
+    when "square"
+      "square"
+    when "h_line"
+      "v_line"
+    when "v_line"
+      "h_line"
+    when "l"
+      "l_90"
+    when "l_90"
+      "l_180"
+    when "l_180"
+      "l_270"
+    when "l_270"
+      "l"
+    end
+  end
+
+  def block_rotator_anticlock
+    case @current_shape
+    when "t"
+      "t_270"
+    when "t_270"
+      "t_180"
+    when "t_180"
+      "t_90"
+    when "t_90"
+      "t"
+    when "square"
+      "square"
+    when "h_line"
+      "v_line"
+    when "v_line"
+      "h_line"
+    when "l"
+      "l_270"
+    when "l_270"
+      "l_180"
+    when "l_180"
+      "l_90"
+    when "l_90"
+      "l"
+    end
+  end
+
 
   def is_adjacent_full?
     temp = []
