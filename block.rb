@@ -52,8 +52,10 @@ class Block
 
   def shape_coords_hash(shape)
    {"t" =>      [[0,5],[1,4],[1,5],[1,6]],
-    "h_line" => [[0,4],[0,5],[0,6]],
-    "v_line" => [[0,5],[1,5],[2,5]],
+    "h_line" => [[1,5],[1,4],[1,6]],
+    # "h_line" => [[0,4],[0,5],[0,6]],
+    # "h_line_90" => [[1,4],[1,5],[1,6]],
+    "v_line" => [[1,5],[0,5],[2,5]],
     "l" =>      [[0,4],[1,4],[1,5],[1,6]],
     "square" => [[0,4],[0,5],[1,4],[1,5]],
     "t_90" =>   [[0,5],[1,5],[1,6],[2,5]],
@@ -68,7 +70,3 @@ end
 
 
 #TASKS TO DO
-# Update the shapes coords in the hash
-# block_rotates right and left
-# updating current_shape after every rotation
-# adding movements to ritated block (ie when the block was on 4th line to the left - as the hash holds coords from the top center of the board)

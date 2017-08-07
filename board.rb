@@ -40,6 +40,8 @@ class Board
     if coordinates_available?(coords)
       @current_coord = coords
       update_board_with_shape(coords)
+      # Only required for rotation - not needed for normal movement
+      @temp_shape_name = @current_shape 
     else
       @stop = true
     end
@@ -89,9 +91,11 @@ class Board
       update_board_with_shape(temp)
       @current_coord = temp
       @current_shape = @temp_shape_name
-      @temp_shape_name = nil
+      # @temp_shape_name = nil
     end
   end
+
+
 
   def can_move?(temp) #checks only not overlapped coords if nil
     temp_arr = temp.dup
@@ -125,8 +129,10 @@ class Board
     elsif mov == "r"
       @temp_shape_name = block_rotator_clock
     end
+
+    puts "#{@temp_shape_name} temp_shape_name in rotate_block"
     origin_shape_coord = @block.shape_coords_hash(@temp_shape_name)
-    puts "#{origin_shape_coord}"
+    puts "#{origin_shape_coord} origin_shape_coord in rotate block"
     vector_coords = find_vector_move(origin_shape_coord)
     origin_shape_coord.each { |coord|
         new_shape_coords << [coord[0] + vector_coords[0], coord[1] + vector_coords[1]] }
@@ -134,6 +140,8 @@ class Board
   end
 
   def find_vector_move(origin_coord)
+    puts "#{origin_coord} origin_coord in find_vector_move"
+    puts "#{@current_coord} current_coord in find_vector_move"
     new_coords_x = @current_coord[0][0] - origin_coord[0][0]
     new_coords_y = @current_coord[0][1] - origin_coord[0][1]
     [new_coords_x, new_coords_y]
