@@ -68,7 +68,5 @@ end
 
 
 # TASKS TO DO
-
-# Update the coordinates of the shapes
 # Remove completed lines from the the middle of the board not just the bottom
 # The first coordinate in the shape coords hash should be the coordinate that is the centre of rotation - update this for alll shapes - square, line and hline done

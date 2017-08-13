@@ -41,7 +41,7 @@ class Board
       @current_coord = coords
       update_board_with_shape(coords)
       # Only required for rotation - not needed for normal movement
-      @temp_shape_name = @current_shape 
+      @temp_shape_name = @current_shape
     else
       @stop = true
     end
@@ -64,19 +64,21 @@ class Board
     coords.all?{|coord| (0..9).include?(coord[0]) && (0..9).include?(coord[1])}
   end
 
-  def is_row_full?(coord)
-    @board_arr[coord[0]].all?{|cell| cell == 'X' }
+  def is_row_full?(row)
+    row.all? {|cell| cell == 'X' }
   end
 
   def clear_row_if_full
     empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
-    if is_row_full?([9,nil])
-      puts "Row is full"
-      @board_arr.pop
-      @board_arr.unshift(empty_row)
-      true
-    else
-      false
+    @board_arr.each_with_index do |row, idx|
+      if is_row_full?(row)
+        puts "Row is full"
+        @board_arr.delete_at(idx)
+        @board_arr.unshift(empty_row)
+        true
+      else
+        false
+      end
     end
   end
 
