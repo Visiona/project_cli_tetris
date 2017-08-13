@@ -26,9 +26,9 @@ class Game
         puts "Goodbye."
     end
 
-    def increment_score
-        @player.total_score += 1
-    end
+    # def increment_score
+    #     @player.total_score += 1
+    # end
 
     def display_score
         @player.total_score
@@ -49,8 +49,10 @@ class Game
             puts "Please provide move: a,d,s,q"
             move = @player.ask_for_coordinates
             @board.move_block(move)
-            increment_score if @board.clear_row_if_full
-            @board.add_block_to_board unless @board.check_if_space_under?
+            unless @board.check_if_space_under?
+              @player.total_score += @board.clear_row_if_full
+              @board.add_block_to_board
+            end
             @board.render_board
             puts "Player score #{@player.total_score}"
             display_score
@@ -68,5 +70,5 @@ end
 
 
 # TASKS TO DO
-# Remove completed lines from the the middle of the board not just the bottom
-# The first coordinate in the shape coords hash should be the coordinate that is the centre of rotation - update this for alll shapes - square, line and hline done
+# clear_old_coords(coords) doesn't clear old coords after movement, but only
+# after at least two rows were removed

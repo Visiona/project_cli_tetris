@@ -39,9 +39,12 @@ class Board
     coords = @block.shape_coords_hash(@current_shape)
     if coordinates_available?(coords)
       @current_coord = coords
+      binding.pry
       update_board_with_shape(coords)
       # Only required for rotation - not needed for normal movement
       @temp_shape_name = @current_shape
+      puts "@temp_shape_name is #{@temp_shape_name}"
+      puts "@current_coord is #{@current_coord}"
     else
       @stop = true
     end
@@ -69,17 +72,17 @@ class Board
   end
 
   def clear_row_if_full
+    rows_removed = 0
     empty_row = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
     @board_arr.each_with_index do |row, idx|
       if is_row_full?(row)
         puts "Row is full"
         @board_arr.delete_at(idx)
         @board_arr.unshift(empty_row)
-        true
-      else
-        false
+        rows_removed += 1
       end
     end
+    rows_removed
   end
 
 
