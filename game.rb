@@ -68,6 +68,8 @@ class Game
 
 end
 
+game = Game.new
+game.play
 
 # TASKS TO DO
 # clear_old_coords(coords) doesn't clear old coords after movement, but only
