@@ -18,6 +18,7 @@ $ ruby game.rb
 
 ## About the authors
 [Dariusz Biskupski](http://dariuszbiskupski.com/)
+
 [Andrea Asamoah](https://andieasamoah.wordpress.com/)
 
 ## Acknowledgments
